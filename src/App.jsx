@@ -9,6 +9,7 @@ import Buy from "./pages/Buy";
 import Login from "./pages/Login";
 import InitialLogin from "./pages/InitialLogin";
 import Succesful from "./pages/Succesful";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="initiallogin" element={<InitialLogin />} />
             <Route path="succesful" element={<Succesful />} />
+            <Route path="register" element={<Register />} />
           </Route>
         </Routes>
       </div>

@@ -25,9 +25,12 @@ const Login = () => {
         setSuccessMessage(
           "Usuario ingreso sesión con exito - Te estamos redirigiendo"
         );
+        const isAdmin = email === "adm@gmail.com" && password === "adm123";
+
+        const redirectTarget = isAdmin ? "/Register" : "/Succesful";
         setTimeout(() => {
-          navigate("/Succesful");
-        }, 3000);
+          navigate(redirectTarget); // Redirect to appropriate page
+        }, 3000); // Add a delay for visual feedback
       } else {
         setErrorMessage(response.data.error);
       }

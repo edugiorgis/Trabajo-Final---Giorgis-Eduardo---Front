@@ -1,5 +1,4 @@
 import React from "react";
-import "../AppNew.jsx";
 import AppNew from "../AppNew.jsx";
 import "../styles.css";
 

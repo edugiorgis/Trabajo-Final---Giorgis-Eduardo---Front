@@ -37,6 +37,7 @@ function AppNew() {
     }
   };
 
+  console.log(products);
   return (
     <>
       <Drawer
