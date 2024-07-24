@@ -23,7 +23,6 @@ function Products() {
           </div>
           <div className="product-details">
             <h2>{product.title}</h2>
-            <p>{product.description}</p>
             <p className="product-price">Price: ${product.price}</p>
           </div>
         </div>

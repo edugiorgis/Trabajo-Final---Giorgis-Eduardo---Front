@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../styles.css";
 
 const Register = () => {
   const [productData, setProductData] = useState({
     title: "",
     description: "",
-    imagePath: "",
     price: 0,
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [productList, setProductList] = useState([]); // New state for product list
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,7 +28,18 @@ const Register = () => {
 
       if (response.data.success) {
         setSuccessMessage("Lista creada con éxito");
-        setProductData({ title: "", description: "", imagePath: "", price: 0 });
+        setProductData({ title: "", description: "", price: 0 });
+
+        // Fetch product list after successful creation
+        try {
+          const productListResponse = await axios.get(
+            "http://localhost:8080/products"
+          );
+          setProductList(productListResponse.data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+          setErrorMessage("Error al obtener los productos");
+        }
       } else {
         setErrorMessage(response.data.error);
       }
@@ -56,23 +68,12 @@ const Register = () => {
           </div>
           <div className="form-group">
             <label htmlFor="description">Descripción:</label>
-            <textarea
+            <input
+              type="text"
               id="description"
               value={productData.description}
               onChange={(e) =>
                 setProductData({ ...productData, description: e.target.value })
-              }
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="imagePath">Ruta de la imagen:</label>
-            <input
-              type="text"
-              id="imagePath"
-              value={productData.imagePath}
-              onChange={(e) =>
-                setProductData({ ...productData, imagePath: e.target.value })
               }
               required
             />
@@ -103,6 +104,19 @@ const Register = () => {
           {successMessage && (
             <p className="success-message">{successMessage}</p>
           )}
+
+          {successMessage &&
+            productList.length > 0 && ( // Only render if successful creation and product list has data
+              <div className="cards-container">
+                {productList.map((product) => (
+                  <div className="card-container" key={product.id}>
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
+                    <p className="product-price">Precio: ${product.price}</p>
+                  </div>
+                ))}
+              </div>
+            )}
         </form>
       </div>
     </div>
