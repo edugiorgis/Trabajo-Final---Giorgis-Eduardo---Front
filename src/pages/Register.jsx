@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles.css";
+import { Button } from "antd";
 
 const Register = () => {
   const [productData, setProductData] = useState({
@@ -93,13 +94,17 @@ const Register = () => {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
+          <Button
+            type="primary"
+            style={{
+              backgroundColor: "#e8ccbf",
+              border: "none",
+              cursor: "pointer",
+            }}
             onClick={handleSubmit}
           >
             Guardar Lista
-          </button>
+          </Button>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && (
             <p className="success-message">{successMessage}</p>
