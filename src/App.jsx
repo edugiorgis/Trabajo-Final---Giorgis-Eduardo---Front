@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import InitialLogin from "./pages/InitialLogin";
 import Succesful from "./pages/Succesful";
 import Register from "./pages/Register";
+import Banner from "./pages/Banner";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="initiallogin" element={<InitialLogin />} />
             <Route path="succesful" element={<Succesful />} />
             <Route path="register" element={<Register />} />
+            <Route path="banner" element={<Banner />} />
           </Route>
         </Routes>
       </div>

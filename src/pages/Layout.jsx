@@ -1,61 +1,44 @@
 import { Link, Outlet } from "react-router-dom";
 import "../styles.css";
 import logoImage from "../assets/Photos/Logo.jpeg";
-import { Button } from "antd";
+import BannerInitial from "./BannerInitial";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="container">
       <nav>
-        <section className="banner">
-          <p> 6 CUOTAS SIN INTERES EN TODO EL SITIO💳</p>
-        </section>
-        <section className="header-links">
-          <section className="headerlogo">
-            <img src={logoImage} alt="Your Logo" />
-          </section>
-
+        <div className="carousel-container">
+          <BannerInitial />
+        </div>
+        <div className="header-container">
+          <img src={logoImage} alt="Your Logo" className="logo" />
+          <p>Generando Momentos</p>
+          <ul className="nav-linksaccount">
+            <li>
+              <Link to="/initiallogin">CREAR CUENTA</Link>
+            </li>
+            <li>
+              <Link to="/login">INICIAR SESIÓN</Link>
+            </li>
+          </ul>
+        </div>
+        <ul className="nav-links">
           <li>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "#e8ccbf",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <Link to="/">Home</Link>
-            </Button>
+            <Link to="/banner">INICIO</Link>
           </li>
           <li>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "#e8ccbf",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <Link to="/about">Nosotros</Link>
-            </Button>
+            <Link to="/">TIENDA</Link>
           </li>
           <li>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "#e8ccbf",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <Link to="/dashboard">Nuestros Productos</Link>
-            </Button>
+            <Link to="/about">NOSOTROS</Link>
           </li>
-        </section>
+          <li>
+            <Link to="/dashboard">NUESTROS PRODUCTOS</Link>
+          </li>
+        </ul>
       </nav>
       <Outlet />
     </div>
   );
 };
-
 export default Layout;

@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import "../styles.css";
@@ -29,8 +30,8 @@ const Login = () => {
 
         const redirectTarget = isAdmin ? "/Register" : "/Succesful";
         setTimeout(() => {
-          navigate(redirectTarget); // Redirect to appropriate page
-        }, 3000); // Add a delay for visual feedback
+          navigate(redirectTarget);
+        }, 3000);
       } else {
         setErrorMessage(response.data.error);
       }
@@ -54,16 +55,17 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className="Initialform">
           <label>
-            Email:
+            EMAIL:
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              style={{ width: "500px", height: "30px" }}
             />
           </label>
           <label>
-            Contraseña:
+            CONTRASEÑA:
             <Input.Password
               name="password"
               type={passwordVisible ? "text" : "password"}
@@ -74,8 +76,15 @@ const Login = () => {
                 visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
               }
               onIconClick={() => setPasswordVisible(!passwordVisible)}
+              style={{ width: "500px", height: "30px" }}
             />
           </label>
+          <div className="successMessage">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && (
+              <p className="success-message">{successMessage}</p>
+            )}
+          </div>
           <div className="Buttoninitiallogin">
             <Button
               type="primary"
@@ -83,18 +92,24 @@ const Login = () => {
                 backgroundColor: "#e8ccbf",
                 border: "none",
                 cursor: "pointer",
+                width: "500px",
+                height: "30px",
               }}
               onClick={handleSubmit}
             >
-              Ingresar
+              INICIAR SESIÓN
             </Button>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && (
-              <p className="success-message">{successMessage}</p>
-            )}
           </div>
         </div>
       </form>
+      <div className="Account">
+        <h1>¿No tenés cuenta?</h1>
+        <ul className="nav-linksaccount">
+          <li>
+            <Link to="/initiallogin">CREAR CUENTA</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

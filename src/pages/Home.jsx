@@ -5,10 +5,12 @@ import "../styles.css";
 const Home = () => {
   return (
     <main>
-      <section className="firstsection">
+      <section className="header-container">
         <h1>LOS MEJORES PRODUCTOS PARA TU HOGAR</h1>
       </section>
-      <AppNew />
+      <div className="Filter">
+        <AppNew />
+      </div>
       <div className="footer">
         <h1>COPYRIGHT PICCASO - 2024. TODOS LOS DERECHOS RESERVADOS.</h1>
       </div>

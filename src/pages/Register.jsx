@@ -51,49 +51,55 @@ const Register = () => {
   };
 
   return (
-    <div className="Abouttitle">
-      <div className="Abouttile2">
-        <h2>Hola Administrador - Podes generar una nuevo producto</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="title">Título:</label>
-            <input
-              type="text"
-              id="title"
-              value={productData.title}
-              onChange={(e) =>
-                setProductData({ ...productData, title: e.target.value })
-              }
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Descripción:</label>
-            <input
-              type="text"
-              id="description"
-              value={productData.description}
-              onChange={(e) =>
-                setProductData({ ...productData, description: e.target.value })
-              }
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="price">Precio:</label>
-            <input
-              type="number"
-              id="price"
-              value={productData.price}
-              onChange={(e) =>
-                setProductData({
-                  ...productData,
-                  price: parseInt(e.target.value),
-                })
-              }
-              required
-            />
-          </div>
+    <div className="Initiallogin">
+      <h2>Hola Administrador - Podes generar una nuevo producto</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="Initialform">
+          <label htmlFor="title">TÍTULO:</label>
+          <input
+            type="text"
+            id="title"
+            style={{ width: "500px", height: "30px" }}
+            value={productData.title}
+            onChange={(e) =>
+              setProductData({ ...productData, title: e.target.value })
+            }
+            required
+          />
+
+          <label htmlFor="description">DESCRIPCIÓN:</label>
+          <input
+            type="text"
+            id="description"
+            style={{ width: "500px", height: "30px" }}
+            value={productData.description}
+            onChange={(e) =>
+              setProductData({ ...productData, description: e.target.value })
+            }
+            required
+          />
+          <label htmlFor="price">PRECIO:</label>
+          <input
+            type="number"
+            id="price"
+            style={{ width: "500px", height: "30px" }}
+            value={productData.price}
+            onChange={(e) =>
+              setProductData({
+                ...productData,
+                price: parseInt(e.target.value),
+              })
+            }
+            required
+          />
+        </div>
+        <div className="successMessage">
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successMessage && (
+            <p className="success-message">{successMessage}</p>
+          )}
+        </div>
+        <div className="Buttoninitiallogin">
           <Button
             type="primary"
             style={{
@@ -103,27 +109,22 @@ const Register = () => {
             }}
             onClick={handleSubmit}
           >
-            Guardar Lista
+            GUARDAR LISTA
           </Button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {successMessage && (
-            <p className="success-message">{successMessage}</p>
-          )}
+        </div>
 
-          {successMessage &&
-            productList.length > 0 && ( // Only render if successful creation and product list has data
-              <div className="cards-container">
-                {productList.map((product) => (
-                  <div className="card-container" key={product.id}>
-                    <h1>{product.title}</h1>
-                    <p>{product.description}</p>
-                    <p className="product-price">Precio: ${product.price}</p>
-                  </div>
-                ))}
+        {successMessage && productList.length > 0 && (
+          <div className="cards-container">
+            {productList.map((product) => (
+              <div className="card-container" key={product.id}>
+                <h1>{product.title}</h1>
+                <p>{product.description}</p>
+                <p className="product-price">Precio: ${product.price}</p>
               </div>
-            )}
-        </form>
-      </div>
+            ))}
+          </div>
+        )}
+      </form>
     </div>
   );
 };

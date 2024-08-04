@@ -1,7 +1,8 @@
-import { Button, Input } from "antd";
 import React, { useState } from "react";
+import { Button, Input, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles.css";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
@@ -14,42 +15,60 @@ const InitialLogin = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData({ ...userData, [name]: value });
+    setErrors({ ...errors, [name]: validateField(name, value) });
+  };
+
+  const validateField = (fieldName, fieldValue) => {
+    switch (fieldName) {
+      case "nombre":
+      case "apellido":
+        return fieldValue.length < 3 ? "Debe tener al menos 3 caracteres" : "";
+      case "dni":
+        return /^\d{8}$/.test(fieldValue) ? "" : "DNI debe tener 8 dígitos";
+      case "celular":
+        return /^\d{10,11}$/.test(fieldValue)
+          ? ""
+          : "Celular debe tener entre 10 y 11 dígitos";
+      case "email":
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fieldValue)
+          ? ""
+          : "Ingrese un email válido debe contener @ y .com";
+      case "password":
+        return fieldValue.length < 8
+          ? ""
+          : "La contraseña debe tener al menos 8 caracteres";
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (Object.values(errors).some((error) => error !== "")) {
+      return;
+    }
 
     try {
       const response = await axios.post(
         "http://localhost:8080/InitialLogin",
         userData
       );
-
       console.log(response.data);
-      setSuccessMessage(
-        "Usuario creado exitosamente - Te estamos redirigiendo - Favor Iniciar Sesión"
-      );
+      setSuccessMessage("Usuario creado exitosamente. Redirigiendo...");
       setTimeout(() => {
         navigate("/Login");
-      }, 4000);
+      }, 2000);
     } catch (error) {
       console.error(error);
-      setTimeout(() => {
-        navigate("/Buy");
-      }, 4000);
-      setSuccessMessage(
-        "Error al crear usuario - Te estamos redirigiendo, para que puedas crear usuario nuevamente"
-      );
+      setSuccessMessage("Error al crear usuario. Intente nuevamente.");
     }
-  };
-
-  const handleChange = (event) => {
-    setUserData({
-      ...userData,
-      [event.target.name]: event.target.value,
-    });
   };
 
   return (
@@ -57,41 +76,74 @@ const InitialLogin = () => {
       <form onSubmit={handleSubmit}>
         <div className="Initialform">
           <label>
-            Nombre:
-            <input name="nombre" type="text" onChange={handleChange} required />
-          </label>
-          <label>
-            Apellido:
+            NOMBRE:
             <input
-              name="apellido"
+              name="nombre"
+              value={userData.nombre}
+              style={{ width: "500px", height: "30px" }}
               type="text"
               onChange={handleChange}
               required
             />
+            {errors.nombre && <p style={{ color: "red" }}>{errors.nombre}</p>}
+          </label>
+          <label>
+            APELLIDO:
+            <input
+              name="apellido"
+              value={userData.apellido}
+              style={{ width: "500px", height: "30px" }}
+              type="text"
+              onChange={handleChange}
+              required
+            />
+            {errors.apellido && (
+              <p style={{ color: "red" }}>{errors.apellido}</p>
+            )}
           </label>
           <label>
             DNI:
-            <input name="dni" type="number" onChange={handleChange} required />
-          </label>
-          <label>
-            Celular:
             <input
-              name="celular"
+              name="dni"
+              value={userData.dni}
+              style={{ width: "500px", height: "30px" }}
               type="number"
               onChange={handleChange}
               required
             />
+            {errors.dni && <p style={{ color: "red" }}>{errors.dni}</p>}
           </label>
           <label>
-            Email:
-            <input name="email" type="email" onChange={handleChange} required />
+            CELULAR:
+            <input
+              name="celular"
+              value={userData.celular}
+              style={{ width: "500px", height: "30px" }}
+              type="number"
+              onChange={handleChange}
+              required
+            />
+            {errors.celular && <p style={{ color: "red" }}>{errors.celular}</p>}
           </label>
           <label>
-            Contraseña:
+            EMAIL:
+            <input
+              name="email"
+              value={userData.email}
+              style={{ width: "500px", height: "30px" }}
+              type="email"
+              onChange={handleChange}
+              required
+            />
+            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          </label>
+          <label>
+            CONTRASEÑA:
             <Input.Password
               name="password"
-              type={passwordVisible ? "text" : "password"}
               value={userData.password}
+              style={{ width: "500px", height: "30px" }}
+              type={passwordVisible ? "text" : "password"}
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
               }
@@ -101,7 +153,15 @@ const InitialLogin = () => {
               }
               onIconClick={() => setPasswordVisible(!passwordVisible)}
             />
+            {errors.password && (
+              <p style={{ color: "red" }}>{errors.password}</p>
+            )}
           </label>
+        </div>
+        <div className="successMessage">
+          {successMessage && (
+            <p className="success-message">{successMessage}</p>
+          )}
         </div>
         <div className="Buttoninitiallogin">
           <Button
@@ -110,16 +170,23 @@ const InitialLogin = () => {
               backgroundColor: "#e8ccbf",
               border: "none",
               cursor: "pointer",
+              width: "500px",
+              height: "30px",
             }}
             onClick={handleSubmit}
           >
-            Registrarse
+            CREAR CUENTA
           </Button>
-          {successMessage && (
-            <p className="success-message">{successMessage}</p>
-          )}
         </div>
       </form>
+      <div className="Account">
+        <h1>¿No tenés cuenta?</h1>
+        <ul className="nav-linksaccount">
+          <li>
+            <Link to="/initiallogin">INICIA SESIÓN</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

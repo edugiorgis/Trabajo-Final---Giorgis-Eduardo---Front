@@ -12,7 +12,6 @@ function AppNew() {
   const [isSorted, setIsSorted] = useState(false);
   const [nombreFilter, setNombreFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState(0);
-  // const [categoryFilter, setCategoryFilter] = useState("");
   const isOpen = useCartStore((state) => state.isOpen);
   const cardProducts = useCartStore((state) => state.products);
   console.log(cardProducts);
@@ -33,7 +32,7 @@ function AppNew() {
     if (cardProducts.length === 0) {
       alert("Debes elegir algún producto");
     } else {
-      navigate("./buy");
+      navigate("./login");
     }
   };
 
@@ -92,23 +91,10 @@ function AppNew() {
             <input
               title="nombre"
               type="number"
-              Value={priceFilter}
+              value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
             />
           </label>
-
-          {/*         <label>
-          <div>Categoria:</div>
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            <option value="-">Todas</option>
-            <option value="Tazas">Tazas</option>
-            <option value="Platos">Platos</option>
-            <option value="Cucharas">Cucharas</option>
-          </select>
-        </label> */}
 
           <label>
             Ordenar por precio
@@ -140,9 +126,6 @@ function AppNew() {
             product.title.toLowerCase().includes(nombreFilter.toLowerCase())
           )
           .filter((product) => product.price > priceFilter)
-          // .filter((product) =>
-          //   categoryFilter === "-" ? true : product.category === categoryFilter
-          // )
           .sort((a, b) => (isSorted ? a.price - b.price : 0))
           .map((product) => (
             <div className="card-container" key={product.id}>
@@ -158,9 +141,22 @@ function AppNew() {
                 }}
               ></Image>
               <p>Precio: ${product.price}</p>
-              <Button onClick={() => actions.addProduct(product)}>
-                Agregar
-              </Button>
+              <div className="Buttoninitiallogin">
+                <button
+                  style={{
+                    backgroundColor: "#e8ccbf",
+                    border: "none",
+                    cursor: "pointer",
+                    width: "100px",
+                    height: "30px",
+                    alignItems: "center",
+                    display: "flex",
+                  }}
+                  onClick={() => actions.addProduct(product)}
+                >
+                  Agregar
+                </button>
+              </div>
             </div>
           ))}
       </div>
