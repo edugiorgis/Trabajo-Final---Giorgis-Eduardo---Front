@@ -34,25 +34,26 @@ const Login = () => {
         );
 
         const isAdmin = email === "adm@gmail.com" && password === "adm123";
-        const redirectTarget = isAdmin ? "/Register" : "/Succesful";
 
         setToken(response.data.token);
         localStorage.setItem("authToken", response.data.token);
-        console.log("Token guardado:", response.data.token);
 
         const userName = response.data.user?.nombre || "Usuario desconocido";
 
         setUserName(userName);
-        console.log("Nombre: ", userName);
-        const hasProducts = products.length > 0;
+        const hasProducts = products.lenght > 0;
+        const redirectTarget = isAdmin
+          ? "/Register"
+          : hasProducts
+          ? "/Succesful"
+          : "/Banner";
         setTimeout(() => {
-          navigate(hasProducts ? redirectTarget : "/Banner");
+          navigate(redirectTarget);
         }, 3000);
       } else {
         setErrorMessage(response.data.error);
       }
     } catch (error) {
-      console.error("Login error:", error);
       if (error.response && error.response.data && error.response.data.error) {
         setErrorMessage(error.response.data.error);
       } else {
@@ -60,7 +61,7 @@ const Login = () => {
           "Error validar usuario - Te estamos redirigiendo, para que puedas volver a intentar"
         );
         setTimeout(() => {
-          navigate("/Buy");
+          navigate("/Login");
         }, 3000);
       }
     }

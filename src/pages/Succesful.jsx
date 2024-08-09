@@ -1,16 +1,14 @@
 import React from "react";
 import { useUserStore } from "../useUserStore";
 import "../styles.css";
-import { Image, Avatar, List } from "antd";
+import { Image, Avatar, List, Button } from "antd";
+import { Link } from "react-router-dom";
 import { useCartStore } from "../useCartStore";
 
 const Succesful = () => {
   const { token } = useUserStore();
   const { userName } = useUserStore();
   const { products } = useCartStore();
-  console.log(token);
-  console.log(userName);
-  console.log(products);
   return (
     <div className="Succesful">
       <div className="SuccessMessage">
@@ -21,7 +19,10 @@ const Succesful = () => {
         {products.map((product, index) => (
           <div key={index} className="Product">
             <div className="ProductContent">
-              <Avatar src={`http://localhost:8080${product.imagePath}`} />
+              <Avatar
+                className="ProductImage"
+                src={`http://localhost:8080${product.imagePath}`}
+              />
               <div className="ProductDetails">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
@@ -30,6 +31,22 @@ const Succesful = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="nav-linksaccount">
+        <Link to="/banner">
+          <Button
+            type="primary"
+            style={{
+              backgroundColor: "#e8ccbf",
+              border: "none",
+              cursor: "pointer",
+              width: "500px",
+              height: "30px",
+            }}
+          >
+            SEGUIR COMPRANDO
+          </Button>
+        </Link>
       </div>
     </div>
   );

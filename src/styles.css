@@ -198,6 +198,10 @@
   color: black;
 }
 
+.nav-linksaccount :hover{
+  color: black;
+}
+
 .nav-linksaccount a:active {
   color: #666;
 }
@@ -357,6 +361,14 @@
   flex-direction: column;
   align-items: center;
 }
+
+.Initiallogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1280px;
+}
+
 .ProductContent {
   display: flex;
   align-items: center;
@@ -366,14 +378,14 @@
 .ProductDetails {
   display: flex;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   flex-direction: column;
   align-items: center;
 }
 
 .ProductDetails p {
   margin: 0;
-  padding: 0;
+  padding: 5px;
 }
 
 .ProductsList {
@@ -381,15 +393,18 @@
   flex-direction: column;
   align-items: center;
   margin: 0;
-  padding: 0;
-  /* Ensure products fill available space */
+  padding: 20px;
   width: 100%;
 }
 .Product {
   display: flex;
   flex-direction: column;
-  flex: 1 1 calc(25% - 10px); /* Adjust width and margin as needed */
+  flex: 1 1 calc(25% - 10px);
   box-sizing: border-box;
   align-items: center;
 }
 
+.ProductImage {
+  width: 100px;
+  height: 100px;
+}

@@ -15,13 +15,10 @@ function AppNew() {
   const [priceFilter, setPriceFilter] = useState(0);
   const isOpen = useCartStore((state) => state.isOpen);
   const cardProducts = useCartStore((state) => state.products);
-  console.log(cardProducts);
   const actions = useCartStore((state) => state.actions);
   const navigate = useNavigate();
   const { token } = useUserStore();
   const { userName } = useUserStore();
-  console.log(token);
-  console.log(userName);
 
   useEffect(() => {
     fetch("http://localhost:8080")
@@ -47,7 +44,6 @@ function AppNew() {
     actions.emptyCart();
   };
 
-  console.log(products);
   return (
     <>
       <Drawer

@@ -7,8 +7,6 @@ import { useUserStore } from "../useUserStore";
 const Layout = () => {
   const { token } = useUserStore();
   const { userName } = useUserStore();
-  console.log(token);
-  console.log(userName);
   return (
     <div className="container">
       <nav>

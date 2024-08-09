@@ -11,7 +11,6 @@ const Products = () => {
         const response = await axios.get("http://localhost:8080/Products");
         setProductList(response.data);
       } catch (error) {
-        console.error("Error fetching products:", error);
         setErrorMessage("Error al obtener los productos");
       }
     };

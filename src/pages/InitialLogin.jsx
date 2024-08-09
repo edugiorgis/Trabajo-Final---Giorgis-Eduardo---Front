@@ -62,13 +62,11 @@ const InitialLogin = () => {
         "http://localhost:8080/InitialLogin",
         userData
       );
-      console.log(response.data);
       setSuccessMessage("Usuario creado exitosamente. Redirigiendo...");
       setTimeout(() => {
         navigate("/Login");
       }, 2000);
     } catch (error) {
-      console.error(error);
       setSuccessMessage("Error al crear usuario. Intente nuevamente.");
     }
   };
@@ -187,7 +185,7 @@ const InitialLogin = () => {
         <h1>¿No tenés cuenta?</h1>
         <ul className="nav-linksaccount">
           <li>
-            <Link to="/initiallogin">INICIA SESIÓN</Link>
+            <Link to="/login">INICIA SESIÓN</Link>
           </li>
         </ul>
       </div>

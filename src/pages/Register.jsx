@@ -7,8 +7,6 @@ import { Button } from "antd";
 const Register = () => {
   const { token } = useUserStore();
   const { userName } = useUserStore();
-  console.log(token);
-  console.log(userName);
   const [productData, setProductData] = useState({
     title: "",
     description: "",
@@ -42,14 +40,12 @@ const Register = () => {
           );
           setProductList(productListResponse.data);
         } catch (error) {
-          console.error("Error fetching products:", error);
           setErrorMessage("Error al obtener los productos");
         }
       } else {
         setErrorMessage(response.data.error);
       }
     } catch (error) {
-      console.error("Error creating list:", error);
       setErrorMessage("Error al crear la lista");
     }
   };
