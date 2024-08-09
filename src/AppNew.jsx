@@ -3,7 +3,6 @@ import { Button, Image, Drawer, List, Avatar, FloatButton } from "antd";
 import { useCartStore } from "./useCartStore";
 import { useUserStore } from "./useUserStore";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
 import "./styles.css";
 import React from "react";
 import { ShoppingCartOutlined } from "@ant-design/icons/lib";

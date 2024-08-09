@@ -47,6 +47,7 @@ const Login = () => {
           : hasProducts
           ? "/Succesful"
           : "/Banner";
+        setErrorMessage("");
         setTimeout(() => {
           navigate(redirectTarget);
         }, 3000);

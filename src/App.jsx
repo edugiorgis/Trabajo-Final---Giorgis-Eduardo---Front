@@ -1,11 +1,9 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Default from "./pages/Default";
 import Dashboard from "./pages/Dashboard";
-import Buy from "./pages/Buy";
 import Login from "./pages/Login";
 import InitialLogin from "./pages/InitialLogin";
 import Succesful from "./pages/Succesful";
@@ -23,7 +21,6 @@ function App() {
             <Route path="banner" element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="*" element={<Default />} />
-            <Route path="buy" element={<Buy />} />
             <Route path="login" element={<Login />} />
             <Route path="initiallogin" element={<InitialLogin />} />
             <Route

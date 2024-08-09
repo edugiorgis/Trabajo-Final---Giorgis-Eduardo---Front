@@ -147,9 +147,16 @@ const InitialLogin = () => {
               onChange={handleChange}
               required
               iconRender={(visible) =>
-                visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
+                visible ? (
+                  <EyeOutlined
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  />
+                ) : (
+                  <EyeInvisibleOutlined
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                  />
+                )
               }
-              onIconClick={() => setPasswordVisible(!passwordVisible)}
             />
             {errors.password && (
               <p style={{ color: "red" }}>
