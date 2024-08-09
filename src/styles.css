@@ -345,3 +345,51 @@
   margin-top: 10px;
   margin-bottom: 30px;
 }
+
+.Succesful {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SuccessMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ProductContent {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.ProductDetails {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProductDetails p {
+  margin: 0;
+  padding: 0;
+}
+
+.ProductsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  /* Ensure products fill available space */
+  width: 100%;
+}
+.Product {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 calc(25% - 10px); /* Adjust width and margin as needed */
+  box-sizing: border-box;
+  align-items: center;
+}
+

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useUserStore } from "../useUserStore";
 import axios from "axios";
 import "../styles.css";
 import { Button } from "antd";
 
 const Register = () => {
+  const { token } = useUserStore();
+  const { userName } = useUserStore();
+  console.log(token);
+  console.log(userName);
   const [productData, setProductData] = useState({
     title: "",
     description: "",
@@ -11,7 +16,7 @@ const Register = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [productList, setProductList] = useState([]); // New state for product list
+  const [productList, setProductList] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +36,6 @@ const Register = () => {
         setSuccessMessage("Lista creada con éxito");
         setProductData({ title: "", description: "", price: 0 });
 
-        // Fetch product list after successful creation
         try {
           const productListResponse = await axios.get(
             "http://localhost:8080/products"

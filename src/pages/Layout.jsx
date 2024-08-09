@@ -2,8 +2,13 @@ import { Link, Outlet } from "react-router-dom";
 import "../styles.css";
 import logoImage from "../assets/Photos/Logo.jpeg";
 import BannerInitial from "./BannerInitial";
+import { useUserStore } from "../useUserStore";
 
 const Layout = () => {
+  const { token } = useUserStore();
+  const { userName } = useUserStore();
+  console.log(token);
+  console.log(userName);
   return (
     <div className="container">
       <nav>
@@ -13,21 +18,25 @@ const Layout = () => {
         <div className="header-container">
           <img src={logoImage} alt="Your Logo" className="logo" />
           <p>Generando Momentos</p>
-          <ul className="nav-linksaccount">
-            <li>
-              <Link to="/initiallogin">CREAR CUENTA</Link>
-            </li>
-            <li>
-              <Link to="/login">INICIAR SESIÓN</Link>
-            </li>
-          </ul>
+          {token ? (
+            <div className="user-greeting">Hola, {userName}</div>
+          ) : (
+            <ul className="nav-linksaccount">
+              <li>
+                <Link to="/initiallogin">CREAR CUENTA</Link>
+              </li>
+              <li>
+                <Link to="/login">INICIAR SESIÓN</Link>
+              </li>
+            </ul>
+          )}
         </div>
         <ul className="nav-links">
           <li>
-            <Link to="/banner">INICIO</Link>
+            <Link to="/">INICIO</Link>
           </li>
           <li>
-            <Link to="/">TIENDA</Link>
+            <Link to="/banner">TIENDA</Link>
           </li>
           <li>
             <Link to="/about">NOSOTROS</Link>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Image, Drawer, List, Avatar, FloatButton } from "antd";
 import { useCartStore } from "./useCartStore";
+import { useUserStore } from "./useUserStore";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
 import "./styles.css";
@@ -17,6 +18,10 @@ function AppNew() {
   console.log(cardProducts);
   const actions = useCartStore((state) => state.actions);
   const navigate = useNavigate();
+  const { token } = useUserStore();
+  const { userName } = useUserStore();
+  console.log(token);
+  console.log(userName);
 
   useEffect(() => {
     fetch("http://localhost:8080")
@@ -31,9 +36,15 @@ function AppNew() {
   const handleBuyClick = () => {
     if (cardProducts.length === 0) {
       alert("Debes elegir algún producto");
+    } else if (token) {
+      navigate("/Succesful");
     } else {
-      navigate("./login");
+      navigate("/Login");
     }
+  };
+
+  const handleEmptyCart = () => {
+    actions.emptyCart();
   };
 
   console.log(products);
@@ -53,7 +64,7 @@ function AppNew() {
       >
         <List>
           {cardProducts.map((product) => (
-            <List.Item Key={product.id}>
+            <List.Item key={product.id}>
               <List.Item.Meta
                 avatar={
                   <Avatar src={`http://localhost:8080${product.imagePath}`} />
@@ -73,6 +84,7 @@ function AppNew() {
           ))}
         </List>
         <Button onClick={handleBuyClick}>Comprar</Button>
+        <Button onClick={handleEmptyCart}>Vaciar Carrito</Button>
       </Drawer>
       <div className="search-box">
         <div className="order">

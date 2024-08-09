@@ -42,9 +42,11 @@ const InitialLogin = () => {
           ? ""
           : "Ingrese un email válido debe contener @ y .com";
       case "password":
-        return fieldValue.length < 8
-          ? ""
-          : "La contraseña debe tener al menos 8 caracteres";
+        return fieldValue.length === 0
+          ? "La contraseña no puede estar vacía"
+          : fieldValue.length < 8
+          ? "La contraseña debe tener al menos 8 caracteres"
+          : "";
     }
   };
 
@@ -144,9 +146,7 @@ const InitialLogin = () => {
               value={userData.password}
               style={{ width: "500px", height: "30px" }}
               type={passwordVisible ? "text" : "password"}
-              onChange={(e) =>
-                setUserData({ ...userData, password: e.target.value })
-              }
+              onChange={handleChange}
               required
               iconRender={(visible) =>
                 visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
@@ -154,7 +154,11 @@ const InitialLogin = () => {
               onIconClick={() => setPasswordVisible(!passwordVisible)}
             />
             {errors.password && (
-              <p style={{ color: "red" }}>{errors.password}</p>
+              <p style={{ color: "red" }}>
+                {errors.password === ""
+                  ? "La contraseña no puede estar vacía"
+                  : errors.password}
+              </p>
             )}
           </label>
         </div>

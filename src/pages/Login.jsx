@@ -1,10 +1,12 @@
 import { Button, Input } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import "../styles.css";
+import { useUserStore } from "../useUserStore";
+import { useCartStore } from "../useCartStore";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +15,10 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
+  const {
+    actions: { setToken, setUserName },
+  } = useUserStore();
+  const { products } = useCartStore();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,13 +30,23 @@ const Login = () => {
       });
       if (response.data.success) {
         setSuccessMessage(
-          "Usuario ingreso sesión con exito - Te estamos redirigiendo"
+          "Usuario ingreso sesión con éxito - Te estamos redirigiendo"
         );
-        const isAdmin = email === "adm@gmail.com" && password === "adm123";
 
+        const isAdmin = email === "adm@gmail.com" && password === "adm123";
         const redirectTarget = isAdmin ? "/Register" : "/Succesful";
+
+        setToken(response.data.token);
+        localStorage.setItem("authToken", response.data.token);
+        console.log("Token guardado:", response.data.token);
+
+        const userName = response.data.user?.nombre || "Usuario desconocido";
+
+        setUserName(userName);
+        console.log("Nombre: ", userName);
+        const hasProducts = products.length > 0;
         setTimeout(() => {
-          navigate(redirectTarget);
+          navigate(hasProducts ? redirectTarget : "/Banner");
         }, 3000);
       } else {
         setErrorMessage(response.data.error);
@@ -49,7 +65,6 @@ const Login = () => {
       }
     }
   };
-
   return (
     <div className="Initiallogin">
       <form onSubmit={handleSubmit}>
@@ -75,7 +90,6 @@ const Login = () => {
               iconRender={(visible) =>
                 visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
               }
-              onIconClick={() => setPasswordVisible(!passwordVisible)}
               style={{ width: "500px", height: "30px" }}
             />
           </label>

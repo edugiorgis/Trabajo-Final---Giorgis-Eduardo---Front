@@ -11,6 +11,7 @@ import InitialLogin from "./pages/InitialLogin";
 import Succesful from "./pages/Succesful";
 import Register from "./pages/Register";
 import Banner from "./pages/Banner";
+import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   return (
@@ -19,15 +20,29 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="about" element={<About />} />
-            <Route path="/" element={<Home />} />
+            <Route path="banner" element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="*" element={<Default />} />
             <Route path="buy" element={<Buy />} />
             <Route path="login" element={<Login />} />
             <Route path="initiallogin" element={<InitialLogin />} />
-            <Route path="succesful" element={<Succesful />} />
-            <Route path="register" element={<Register />} />
-            <Route path="banner" element={<Banner />} />
+            <Route
+              path="succesful"
+              element={
+                <PrivateRoute>
+                  <Succesful />{" "}
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PrivateRoute>
+                  <Register />{" "}
+                </PrivateRoute>
+              }
+            />
+            <Route path="/" element={<Banner />} />
           </Route>
         </Routes>
       </div>
